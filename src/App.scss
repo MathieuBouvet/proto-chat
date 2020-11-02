@@ -8,13 +8,9 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     height: $header-height;
     font-size: 2rem;
     box-shadow: 0 5px 2px 5px $brand-color;
-  }
-
-  .app-content {
-    height: $content-height;
   }
 }

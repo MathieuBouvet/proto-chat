@@ -2,6 +2,9 @@ $brand-color: #ee5622;
 $dark: #221e22;
 $light: #fdfffc;
 
+$link-color: #4ea5d9;
+$visited-link-color: #9381ff;
+
 $header-height: 75px;
 $content-height: calc(100vh - #{$header-height});
 
@@ -13,4 +16,12 @@ html {
   color: $light;
   font-size: 100%;
   background-color: $dark;
+}
+
+a {
+  color: $link-color;
+
+  &:visited {
+    color: $visited-link-color;
+  }
 }
