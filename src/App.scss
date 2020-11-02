@@ -3,17 +3,6 @@
 .App {
   text-align: center;
 
-  .app-header {
-    background-color: $brand-color;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    height: $header-height;
-    font-size: 2rem;
-    box-shadow: 0 5px 2px 5px $brand-color;
-  }
-
   .google-signin-button {
     background-color: #d9382a;
     color: $light;
