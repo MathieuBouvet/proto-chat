@@ -1,6 +1,8 @@
 import "./App.scss";
 import googleLogo from "./assets/google-logo.svg";
 
+import { signInWithGoogle } from "./services/firebase";
+
 function App() {
   return (
     <div className="App">
@@ -21,7 +23,7 @@ function App() {
           Sign in using a google account to start chatting with everyone using
           this app. <small>That means not a lot of people actually 😉</small>
         </p>
-        <button className="google-signin-button">
+        <button className="google-signin-button" onClick={signInWithGoogle}>
           <img src={googleLogo} alt="google-logo" className="google-logo" />
           sign in with google
         </button>
