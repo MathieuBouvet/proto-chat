@@ -2,7 +2,8 @@ $brand-color: #ee5622;
 $dark: #221e22;
 $light: #fdfffc;
 
-$header-height: 55px;
+$header-height: 75px;
+$content-height: calc(100vh - #{$header-height});
 
 * {
   box-sizing: border-box;

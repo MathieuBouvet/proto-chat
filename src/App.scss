@@ -12,4 +12,9 @@
     height: $header-height;
     font-size: 2rem;
   }
+
+  .app-content {
+    background-color: $dark;
+    height: $content-height;
+  }
 }
