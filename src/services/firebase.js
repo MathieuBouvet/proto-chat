@@ -18,12 +18,7 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 const signInWithGoogle = async () => {
-  try {
-    const res = await auth.signInWithPopup(googleProvider);
-    console.log("LOGGED IN", res.user);
-  } catch (err) {
-    console.log("ERROR", err);
-  }
+  return auth.signInWithPopup(googleProvider);
 };
 
 export { auth, googleProvider, signInWithGoogle };
