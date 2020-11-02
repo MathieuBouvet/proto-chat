@@ -1,0 +1,14 @@
+$brand-color: #ee5622;
+$dark: #221e22;
+$light: #fdfffc;
+
+$header-height: 55px;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color: $light;
+  font-size: 100%;
+}
