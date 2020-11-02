@@ -9,8 +9,8 @@ const UserProvider = ({ children }) => {
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
-        const { displayName: name, email, photoURL: avatar } = user;
-        setUser({ email, name, avatar });
+        const { uid, displayName: name, email, photoURL: avatar } = user;
+        setUser({ uid, email, name, avatar });
       } else {
         setUser(null);
       }
