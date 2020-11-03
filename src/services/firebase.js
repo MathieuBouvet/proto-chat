@@ -29,7 +29,8 @@ const signOut = async () => {
   return Promise.all([setOffline(auth.currentUser.uid), auth.signOut()]);
 };
 const setOnline = async (user) => {
-  return db.ref("users/" + user.uid).set({ ...user, online: true });
+  const { email, name } = user;
+  return db.ref("users/" + user.uid).set({ name, email, online: true });
 };
 
 const setOffline = async (uid) => {
