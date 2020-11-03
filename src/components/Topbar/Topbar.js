@@ -23,8 +23,8 @@ const Topbar = () => {
             referrerPolicy="no-referrer"
           />
           <span className="user-name">{user.name}</span>
-          <button className="logout-button">
-            <FaPowerOff className="logout-icon" onClick={signOut} />
+          <button className="logout-button" onClick={signOut}>
+            <FaPowerOff className="logout-icon" />
           </button>
         </>
       )}
