@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { FaTelegramPlane } from "react-icons/fa";
 
 import { db } from "../../services/firebase";
 
@@ -49,6 +50,13 @@ const Chat = () => {
             <User key={user.uid} user={user} />
           ))}
         </ul>
+      </section>
+      <section className="input-container">
+        <input type="text" className="message-input" />
+        <button className="send-button">
+          <FaTelegramPlane className="send-icon" />
+          send
+        </button>
       </section>
     </main>
   );
