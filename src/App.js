@@ -3,6 +3,7 @@ import Topbar from "./components/Topbar";
 import Landing from "./components/Landing";
 import UserProvider, { UserContext } from "./UserProvider";
 import { signOut } from "./services/firebase";
+import Chat from "./components/Chat";
 
 import "./App.scss";
 
@@ -20,7 +21,7 @@ function App() {
         {({ user }) => (
           <div className="App">
             <Topbar />
-            {!user ? <Landing /> : "logged in"}
+            {!user ? <Landing /> : <Chat />}
           </div>
         )}
       </UserContext.Consumer>
