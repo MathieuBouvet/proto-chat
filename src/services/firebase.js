@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/database";
 
 dotenv.config();
 
@@ -18,10 +19,28 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 
+const db = firebase.database();
+
 const signInWithGoogle = async () => {
   return auth.signInWithPopup(googleProvider);
 };
 
-const signOut = () => auth.signOut();
+const signOut = async () => {
+  return Promise.all([setOffline(auth.currentUser.uid), auth.signOut()]);
+};
+const setOnline = async (user) => {
+  return db.ref("users/" + user.uid).set({ ...user, online: true });
+};
 
-export { auth, googleProvider, signInWithGoogle, signOut };
+const setOffline = async (uid) => {
+  return db.ref("users/" + uid).update({ online: false });
+};
+
+export {
+  auth,
+  googleProvider,
+  signInWithGoogle,
+  signOut,
+  setOnline,
+  setOffline,
+};
