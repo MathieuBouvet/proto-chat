@@ -7,13 +7,13 @@
   grid-template-rows: 1fr 25vh;
   grid-template-columns: auto 1fr;
   grid-template-areas:
-    "user messages"
-    "user input";
+    "users messages"
+    "users input";
   position: relative;
   z-index: 0;
 
   .users {
-    grid-area: user;
+    grid-area: users;
     padding: 0 15px;
     background-color: darken($dark, 2%);
   }
