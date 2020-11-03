@@ -4,6 +4,21 @@ import { db } from "../../services/firebase";
 
 import "./Chat.scss";
 
+const getUserName = (user) => user.name ?? user.email ?? "N/A";
+const status = (user) => (user.online ? "online" : "offline");
+
+const User = ({ user }) => (
+  <li className={`user ${status(user)}`} title={status(user)}>
+    <img
+      src={user.avatar}
+      className="profile-picture"
+      alt={`avatar-for-${getUserName(user)}`}
+      referrerPolicy="no-referrer"
+    />
+    {getUserName(user)}
+  </li>
+);
+
 const Chat = () => {
   const [users, setUsers] = useState([]);
   useEffect(() => {
@@ -18,17 +33,20 @@ const Chat = () => {
 
     return () => usersRef.off();
   }, []);
+
+  const onlineUsers = users.filter((user) => user.online);
+  const offlineUsers = users.filter((user) => !user.online);
+
   return (
     <main className="Chat">
       <section className="users">
-        <h3>Users</h3>
-        <ul>
-          {users.map((user) => (
-            <li key={user.uid}>
-              {user.online ? "online" : "offline"}
-              {" - "}
-              {user.name}
-            </li>
+        <h2>users</h2>
+        <ul className="user-list">
+          {onlineUsers.map((user) => (
+            <User key={user.uid} user={user} />
+          ))}
+          {offlineUsers.map((user) => (
+            <User key={user.uid} user={user} />
           ))}
         </ul>
       </section>

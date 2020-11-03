@@ -5,8 +5,37 @@
   width: 100vw;
   height: $content-height;
   grid-template-rows: 1fr 25vh;
-  grid-template-columns: 15vw 1fr;
+  grid-template-columns: auto 1fr;
   grid-template-areas:
     "user messages"
     "user input";
+
+  .users {
+    grid-area: user;
+    margin: 0 15px;
+  }
+
+  .user-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .profile-picture {
+    border-radius: 100%;
+    width: 45px;
+    height: 45px;
+    margin-bottom: 10px;
+  }
+
+  .user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
+
+    &.offline {
+      filter: grayscale(1);
+      color: darkgray;
+    }
+  }
 }
