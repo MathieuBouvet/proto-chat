@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: center;
   height: $header-height;
-  box-shadow: 0 5px 2px 5px $brand-color;
+  box-shadow: 0 0 2px 1px $brand-color;
 
   &.logged-in {
     justify-content: flex-start;
