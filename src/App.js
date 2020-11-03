@@ -1,7 +1,8 @@
-import "./App.scss";
 import Topbar from "./components/Topbar";
 import Landing from "./components/Landing";
 import UserProvider, { UserContext } from "./UserProvider";
+
+import "./App.scss";
 
 function App() {
   return (

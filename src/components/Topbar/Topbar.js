@@ -1,7 +1,9 @@
 import { useContext } from "react";
+import { FaPowerOff } from "react-icons/fa";
+
 import { UserContext } from "../../UserProvider";
 import { signOut } from "../../services/firebase";
-import { FaPowerOff } from "react-icons/fa";
+
 import "./Topbar.scss";
 
 function loggedInClassName(user) {
