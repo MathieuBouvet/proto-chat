@@ -44,4 +44,5 @@ export {
   signOut,
   setOnline,
   setOffline,
+  db,
 };
