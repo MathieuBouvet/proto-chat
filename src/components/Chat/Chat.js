@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { FaTelegramPlane } from "react-icons/fa";
+import { format } from "timeago.js";
 
 import { db } from "../../services/firebase";
 import { UserContext } from "../../UserProvider";
@@ -16,7 +17,7 @@ const messageSender = ({ user }) => (message) => {
 };
 
 const User = ({ user }) => (
-  <li className={`user ${status(user)}`} title={status(user)}>
+  <div className={`user ${status(user)}`} title={status(user)}>
     <img
       src={user.avatar}
       className="profile-picture"
@@ -24,11 +25,33 @@ const User = ({ user }) => (
       referrerPolicy="no-referrer"
     />
     {getUserName(user)}
-  </li>
+  </div>
 );
+
+const Message = ({ message }) => {
+  const poster = message.user;
+  return (
+    <div className="message">
+      <img
+        src={poster.avatar}
+        className="profile-picture poster-picture"
+        alt={`avatar-for-${getUserName(poster)}`}
+        referrerPolicy="no-referrer"
+      />
+      <div className="posted-info">
+        <span className="poster-name">{getUserName(poster)}</span>{" "}
+        <small>
+          <i className="posted-at">{format(message.postedAt)}</i>
+        </small>
+      </div>
+      <div className="posted-message">{message.message}</div>
+    </div>
+  );
+};
 
 const Chat = () => {
   const [users, setUsers] = useState([]);
+  const [messages, setMessages] = useState([]);
   const [currentMessage, setCurrentMessage] = useState("");
   const user = useContext(UserContext);
   const sendMessage = messageSender(user);
@@ -46,6 +69,18 @@ const Chat = () => {
     return () => usersRef.off();
   }, []);
 
+  useEffect(() => {
+    const messagesRef = db.ref("messages");
+    messagesRef.on("value", (snapshot) => {
+      const messages = [];
+      snapshot.forEach((child) => {
+        messages.push({ ...child.val(), key: child.key });
+      });
+      setMessages(messages);
+    });
+    return () => messagesRef.off();
+  }, []);
+
   const onlineUsers = users.filter((user) => user.online);
   const offlineUsers = users.filter((user) => !user.online);
 
@@ -55,10 +90,14 @@ const Chat = () => {
         <h2>users</h2>
         <ul className="user-list">
           {onlineUsers.map((user) => (
-            <User key={user.uid} user={user} />
+            <li key={user.uid}>
+              <User user={user} />
+            </li>
           ))}
           {offlineUsers.map((user) => (
-            <User key={user.uid} user={user} />
+            <li key={user.uid}>
+              <User user={user} />
+            </li>
           ))}
         </ul>
       </section>
@@ -85,6 +124,15 @@ const Chat = () => {
           <FaTelegramPlane className="send-icon" />
           send
         </button>
+      </section>
+      <section className="messages">
+        <ul className="message-list">
+          {messages.map((message) => (
+            <li key={message.key} className="message-item">
+              <Message message={message} />
+            </li>
+          ))}
+        </ul>
       </section>
     </main>
   );
