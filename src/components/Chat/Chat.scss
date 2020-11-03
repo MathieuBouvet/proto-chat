@@ -9,10 +9,13 @@
   grid-template-areas:
     "user messages"
     "user input";
+  position: relative;
+  z-index: 0;
 
   .users {
     grid-area: user;
-    margin: 0 15px;
+    padding: 0 15px;
+    background-color: darken($dark, 2%);
   }
 
   .user-list {

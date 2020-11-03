@@ -8,6 +8,8 @@
   justify-content: center;
   height: $header-height;
   box-shadow: 0 0 2px 1px $brand-color;
+  position: relative;
+  z-index: 10;
 
   &.logged-in {
     justify-content: flex-start;
