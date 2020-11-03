@@ -1,0 +1,25 @@
+@import "../../global.scss";
+
+.Landing {
+  .google-signin-button {
+    background-color: #d9382a;
+    color: $light;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+      background-color: lighten(#d9382a, 3%);
+    }
+  }
+
+  .google-logo {
+    width: 47px;
+    height: 47px;
+    margin-right: 7px;
+  }
+}
