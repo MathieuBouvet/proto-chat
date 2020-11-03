@@ -1,12 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { FaTelegramPlane } from "react-icons/fa";
 
 import { db } from "../../services/firebase";
+import { UserContext } from "../../UserProvider";
 
 import "./Chat.scss";
 
 const getUserName = (user) => user.name ?? user.email ?? "N/A";
 const status = (user) => (user.online ? "online" : "offline");
+
+const messageSender = ({ user }) => (message) => {
+  if (message !== "") {
+    db.ref("messages").push({ user, message, postedAt: Date.now() });
+  }
+};
 
 const User = ({ user }) => (
   <li className={`user ${status(user)}`} title={status(user)}>
@@ -22,6 +29,10 @@ const User = ({ user }) => (
 
 const Chat = () => {
   const [users, setUsers] = useState([]);
+  const [currentMessage, setCurrentMessage] = useState("");
+  const user = useContext(UserContext);
+  const sendMessage = messageSender(user);
+
   useEffect(() => {
     const usersRef = db.ref("users");
     usersRef.on("value", (snapshot) => {
@@ -52,8 +63,25 @@ const Chat = () => {
         </ul>
       </section>
       <section className="input-container">
-        <input type="text" className="message-input" />
-        <button className="send-button">
+        <input
+          type="text"
+          className="message-input"
+          value={currentMessage}
+          onChange={(e) => setCurrentMessage(e.target.value)}
+          onKeyPress={(e) => {
+            if (e.code === "Enter") {
+              sendMessage(currentMessage);
+              setCurrentMessage("");
+            }
+          }}
+        />
+        <button
+          className="send-button"
+          onClick={() => {
+            sendMessage(currentMessage);
+            setCurrentMessage("");
+          }}
+        >
           <FaTelegramPlane className="send-icon" />
           send
         </button>
