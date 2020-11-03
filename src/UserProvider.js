@@ -12,7 +12,7 @@ const UserProvider = ({ children }) => {
       try {
         if (newUser) {
           const { uid, displayName: name, email, photoURL: avatar } = newUser;
-          await setOnline({ uid, email, name });
+          await setOnline({ uid, email, name, avatar });
           setUser({ uid, email, name, avatar });
           setErrorStatus(false);
         } else {
