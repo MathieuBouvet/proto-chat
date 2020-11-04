@@ -1,14 +1,14 @@
 import { useContext } from "react";
 
 import { signInWithGoogle } from "../../services/firebase";
-import { ErrorContext, reporter } from "../../ErrorCatcher";
+import { ErrorContext, createReporter } from "../../ErrorCatcher";
 
 import googleLogo from "../../assets/google-logo.svg";
 import "./Landing.scss";
 
 const Landing = () => {
   const { errors, dispatchError } = useContext(ErrorContext);
-  const withLoginReporter = reporter(dispatchError, "login");
+  const withLoginReporter = createReporter(dispatchError, "login");
   const tryGoogleSignin = withLoginReporter(signInWithGoogle);
   return (
     <main className="Landing">

@@ -30,7 +30,7 @@ const ErrorCatcher = ({ children }) => {
   );
 };
 
-function reporter(dispatch, domain) {
+function createReporter(dispatch, domain) {
   return (func) => async (...args) => {
     try {
       await func(...args);
@@ -42,4 +42,4 @@ function reporter(dispatch, domain) {
 }
 
 export default ErrorCatcher;
-export { ErrorContext, reporter };
+export { ErrorContext, createReporter };

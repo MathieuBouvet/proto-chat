@@ -4,7 +4,7 @@ import { format } from "timeago.js";
 
 import { db } from "../../services/firebase";
 import { UserContext } from "../../UserProvider";
-import { ErrorContext, reporter } from "../../ErrorCatcher";
+import { ErrorContext, createReporter } from "../../ErrorCatcher";
 
 import "./Chat.scss";
 
@@ -57,7 +57,7 @@ const Chat = () => {
   const user = useContext(UserContext);
   const { dispatchError } = useContext(ErrorContext);
 
-  const withDbWriteReporter = reporter(dispatchError, "write-database");
+  const withDbWriteReporter = createReporter(dispatchError, "write-database");
   const sendMessage = withDbWriteReporter(messageSender(user));
 
   const messagesContainerRef = useRef(null);
