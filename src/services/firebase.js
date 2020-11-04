@@ -38,4 +38,4 @@ const setOffline = async (uid) => {
   return db.ref("users/" + uid).update({ online: false });
 };
 
-export { auth, googleProvider, signInWithGoogle, signOut, db, setOnline };
+export { auth, signInWithGoogle, signOut, db, setOnline };
