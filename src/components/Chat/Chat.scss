@@ -16,6 +16,7 @@
     grid-area: users;
     padding: 0 15px;
     background-color: darken($dark, 2%);
+    overflow-y: auto;
   }
 
   .user-list {
