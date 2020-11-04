@@ -10,6 +10,8 @@ $content-height: calc(100vh - #{$header-height});
 
 * {
   box-sizing: border-box;
+  scrollbar-width: auto;
+  scrollbar-color: lighten($dark, 10%) $dark;
 }
 
 html {
@@ -25,4 +27,15 @@ a {
   &:visited {
     color: $visited-link-color;
   }
+}
+
+*::-webkit-scrollbar {
+  width: 12px;
+}
+*::-webkit-scrollbar-track {
+  background: $dark;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: lighten($dark, 10%);
+  border-radius: 3px;
 }
