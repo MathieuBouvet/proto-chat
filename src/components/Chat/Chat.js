@@ -123,7 +123,7 @@ const Chat = () => {
           value={currentMessage}
           onChange={(e) => setCurrentMessage(e.target.value)}
           onKeyPress={(e) => {
-            if (e.code === "Enter") {
+            if (e.code === "Enter" || e.code === "NumpadEnter") {
               sendMessage(currentMessage);
               setCurrentMessage("");
             }
