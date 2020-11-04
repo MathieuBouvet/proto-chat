@@ -7,7 +7,7 @@ const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    return auth.onAuthStateChanged(async (user) => {
+    return auth.onAuthStateChanged((user) => {
       if (user) {
         const { uid, displayName: name, email, photoURL: avatar } = user;
         setUser({ uid, email, name, avatar });
