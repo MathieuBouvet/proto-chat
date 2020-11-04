@@ -1,15 +1,13 @@
 import { useContext } from "react";
 
 import { signInWithGoogle } from "../../services/firebase";
-import { ErrorContext } from "../../ErrorCatcher";
+import { ErrorContext, dismiss, createError } from "../../ErrorCatcher";
 
 import googleLogo from "../../assets/google-logo.svg";
 import "./Landing.scss";
 
 const Landing = () => {
   const { errors, errorReporter } = useContext(ErrorContext);
-  const withLoginErrorCatcher = errorReporter("login");
-  const tryLoginWithGoogle = withLoginErrorCatcher(signInWithGoogle);
   return (
     <main className="Landing">
       <h1>Welcome to proto-chat !</h1>
@@ -27,7 +25,17 @@ const Landing = () => {
         Sign in using a google account to start chatting with everyone using
         this app. <small>That means not a lot of people actually 😉</small>
       </p>
-      <button className="google-signin-button" onClick={tryLoginWithGoogle}>
+      <button
+        className="google-signin-button"
+        onClick={async () => {
+          try {
+            await signInWithGoogle();
+            errorReporter(dismiss("login"));
+          } catch (error) {
+            errorReporter(createError("login", error));
+          }
+        }}
+      >
         <img src={googleLogo} alt="google-logo" className="google-logo" />
         sign in with google
       </button>
