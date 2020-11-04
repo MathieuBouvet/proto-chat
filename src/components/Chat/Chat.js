@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import { FaTelegramPlane } from "react-icons/fa";
 import { format } from "timeago.js";
 
@@ -55,6 +55,7 @@ const Chat = () => {
   const [currentMessage, setCurrentMessage] = useState("");
   const user = useContext(UserContext);
   const sendMessage = messageSender(user);
+  const messagesContainerRef = useRef(null);
 
   useEffect(() => {
     const usersRef = db.ref("users");
@@ -80,6 +81,15 @@ const Chat = () => {
     });
     return () => messagesRef.off();
   }, []);
+
+  useEffect(() => {
+    if (messagesContainerRef.current != null) {
+      messagesContainerRef.current.scrollTo(
+        0,
+        messagesContainerRef.current.scrollHeight
+      );
+    }
+  });
 
   const onlineUsers = users.filter((user) => user.online);
   const offlineUsers = users.filter((user) => !user.online);
@@ -125,7 +135,7 @@ const Chat = () => {
           send
         </button>
       </section>
-      <section className="messages">
+      <section className="messages" ref={messagesContainerRef}>
         <ul className="message-list">
           {messages.map((message) => (
             <li key={message.key} className="message-item">
