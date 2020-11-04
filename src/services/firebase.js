@@ -22,15 +22,17 @@ const googleProvider = new firebase.auth.GoogleAuthProvider();
 const db = firebase.database();
 
 const signInWithGoogle = async () => {
-  return auth.signInWithPopup(googleProvider);
+  const user = await auth.signInWithPopup(googleProvider);
+  return setOnline(user);
 };
 
 const signOut = async () => {
-  return Promise.all([setOffline(auth.currentUser.uid), auth.signOut()]);
+  await setOffline(auth.currentUser.uid);
+  return auth.signOut();
 };
 const setOnline = async (user) => {
-  const { email, name, avatar } = user;
-  return db.ref("users/" + user.uid).set({ name, email, avatar, online: true });
+  const { email, displayName: name, photoURL: avatar, uid } = user.user;
+  return db.ref("users/" + uid).set({ name, email, avatar, online: true });
 };
 
 const setOffline = async (uid) => {

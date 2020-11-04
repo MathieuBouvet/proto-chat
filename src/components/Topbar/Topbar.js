@@ -11,7 +11,7 @@ function loggedInClassName(user) {
 }
 
 const Topbar = () => {
-  const { user } = useContext(UserContext);
+  const user = useContext(UserContext);
   const getLoggedInClassName = loggedInClassName(user);
   return (
     <header className={getLoggedInClassName("Topbar")}>
