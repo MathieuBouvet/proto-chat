@@ -1,20 +1,15 @@
-import { useState } from "react";
+import { useContext } from "react";
 
 import { signInWithGoogle } from "../../services/firebase";
+import { ErrorContext } from "../../ErrorCatcher";
 
 import googleLogo from "../../assets/google-logo.svg";
 import "./Landing.scss";
 
 const Landing = () => {
-  const [hasLoginError, setHasLoginError] = useState(false);
-  const tryLoginWithGoogle = async () => {
-    try {
-      await signInWithGoogle();
-      setHasLoginError(false);
-    } catch (error) {
-      setHasLoginError(true);
-    }
-  };
+  const { errors, errorReporter } = useContext(ErrorContext);
+  const withLoginErrorCatcher = errorReporter("login");
+  const tryLoginWithGoogle = withLoginErrorCatcher(signInWithGoogle);
   return (
     <main className="Landing">
       <h1>Welcome to proto-chat !</h1>
@@ -36,7 +31,7 @@ const Landing = () => {
         <img src={googleLogo} alt="google-logo" className="google-logo" />
         sign in with google
       </button>
-      {hasLoginError && <div>Erreur lors de la tentative de connexion</div>}
+      {errors.login && <div>Erreur lors de la tentative de connexion</div>}
     </main>
   );
 };
