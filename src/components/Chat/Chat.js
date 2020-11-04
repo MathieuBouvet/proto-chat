@@ -4,15 +4,16 @@ import { format } from "timeago.js";
 
 import { db } from "../../services/firebase";
 import { UserContext } from "../../UserProvider";
+import { ErrorContext, reporter } from "../../ErrorCatcher";
 
 import "./Chat.scss";
 
 const getUserName = (user) => user.name ?? user.email ?? "N/A";
 const status = (user) => (user.online ? "online" : "offline");
 
-const messageSender = (user) => (message) => {
+const messageSender = (user) => async (message) => {
   if (message !== "") {
-    db.ref("messages").push({ user, message, postedAt: Date.now() });
+    await db.ref("messages").push({ user, message, postedAt: Date.now() });
   }
 };
 
@@ -54,7 +55,11 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [currentMessage, setCurrentMessage] = useState("");
   const user = useContext(UserContext);
-  const sendMessage = messageSender(user);
+  const { dispatchError } = useContext(ErrorContext);
+
+  const withDbWriteReporter = reporter(dispatchError, "write-database");
+  const sendMessage = withDbWriteReporter(messageSender(user));
+
   const messagesContainerRef = useRef(null);
 
   useEffect(() => {
