@@ -37,14 +37,15 @@
 
   .logout-button {
     border: none;
-    border-radius: 5px;
-    padding: 10px;
+    border-radius: 100%;
+    width: 45px;
+    height: 45px;
     background-color: $dark;
     color: $light;
     cursor: pointer;
 
     &:hover {
-      background-color: lighten($dark, 3%);
+      background-color: lighten($dark, 5%);
     }
   }
 
