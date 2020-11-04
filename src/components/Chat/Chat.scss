@@ -95,6 +95,7 @@
 
   .messages {
     grid-area: messages;
+    overflow-y: auto;
   }
 
   .message-list {
