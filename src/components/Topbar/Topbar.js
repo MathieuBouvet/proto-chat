@@ -18,13 +18,13 @@ const Topbar = () => {
       <span className={getLoggedInClassName("app-title")}>proto-chat</span>
       {user && (
         <>
+          <span className="user-name">{user.name}</span>
           <img
             className="profile-picture"
             src={user.avatar}
             alt="profile"
             referrerPolicy="no-referrer"
           />
-          <span className="user-name">{user.name}</span>
           <button className="logout-button" onClick={signOut}>
             <FaPowerOff className="logout-icon" />
           </button>
