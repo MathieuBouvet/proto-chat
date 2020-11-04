@@ -21,28 +21,25 @@ const errorReducer = (state, action) => {
 };
 
 const ErrorCatcher = ({ children }) => {
-  const [errors, errorReporter] = useReducer(errorReducer, {});
+  const [errors, dispatchError] = useReducer(errorReducer, {});
 
   return (
-    <ErrorContext.Provider value={{ errors, errorReporter }}>
+    <ErrorContext.Provider value={{ errors, dispatchError }}>
       {children}
     </ErrorContext.Provider>
   );
 };
 
-function createError(domain, error) {
-  return {
-    type: "REPORT_ERROR",
-    payload: { domain, error },
-  };
-}
-
-function dismiss(domain) {
-  return {
-    type: "DISMISS_ERROR",
-    payload: { domain },
+function reporter(dispatch, domain) {
+  return (func) => async (...args) => {
+    try {
+      await func(...args);
+      dispatch({ type: "DISMISS_ERROR", payload: { domain } });
+    } catch (error) {
+      dispatch({ type: "REPORT_ERROR", payload: { domain, error } });
+    }
   };
 }
 
 export default ErrorCatcher;
-export { ErrorContext, createError, dismiss };
+export { ErrorContext, reporter };

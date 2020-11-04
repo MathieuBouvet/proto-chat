@@ -3,7 +3,7 @@ import { useEffect, useContext } from "react";
 import Topbar from "./components/Topbar";
 import Landing from "./components/Landing";
 import { UserContext } from "./UserProvider";
-import { ErrorContext, createError, dismiss } from "./ErrorCatcher";
+import { ErrorContext, reporter } from "./ErrorCatcher";
 import { signOut, setOnline } from "./services/firebase";
 import Chat from "./components/Chat";
 
@@ -11,19 +11,15 @@ import "./App.scss";
 
 function App() {
   const user = useContext(UserContext);
-  const { errorReporter } = useContext(ErrorContext);
+  const { dispatchError } = useContext(ErrorContext);
   useEffect(() => {
-    (async () => {
-      try {
-        if (user) {
-          await setOnline(user);
-          errorReporter(dismiss("read-database"));
-        }
-      } catch (error) {
-        errorReporter(createError("read-database", error));
+    const withReadDatabaseReporter = reporter(dispatchError, "read-database");
+    withReadDatabaseReporter(async () => {
+      if (user) {
+        await setOnline(user);
       }
     })();
-  }, [user, errorReporter]);
+  }, [user, dispatchError]);
   useEffect(() => {
     window.addEventListener("beforeunload", signOut);
     return () => window.removeEventListener("beforeunload", signOut);
