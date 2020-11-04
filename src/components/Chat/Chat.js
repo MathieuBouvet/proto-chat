@@ -10,7 +10,7 @@ import "./Chat.scss";
 const getUserName = (user) => user.name ?? user.email ?? "N/A";
 const status = (user) => (user.online ? "online" : "offline");
 
-const messageSender = ({ user }) => (message) => {
+const messageSender = (user) => (message) => {
   if (message !== "") {
     db.ref("messages").push({ user, message, postedAt: Date.now() });
   }
