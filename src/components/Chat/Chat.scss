@@ -97,6 +97,7 @@
   .messages {
     grid-area: messages;
     overflow-y: auto;
+    text-align: left;
   }
 
   .message-list {
@@ -138,5 +139,8 @@
 
   .message-item {
     margin-bottom: 35px;
+  }
+  .write-database-error-listener {
+    display: inline-block;
   }
 }

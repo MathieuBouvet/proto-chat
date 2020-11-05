@@ -5,6 +5,7 @@ import { format } from "timeago.js";
 import { db } from "../../services/firebase";
 import { UserContext } from "../../UserProvider";
 import { ErrorContext, createReporter } from "../../ErrorCatcher";
+import ErrorListener from "../ErrorListener";
 
 import "./Chat.scss";
 
@@ -148,6 +149,14 @@ const Chat = () => {
             </li>
           ))}
         </ul>
+        <ErrorListener
+          className="write-database-error-listener"
+          domain="write-database"
+          title="Send Error"
+        >
+          An error occured while trying to send the message. This is most likely
+          a network error, so you should try again.
+        </ErrorListener>
       </section>
     </main>
   );
