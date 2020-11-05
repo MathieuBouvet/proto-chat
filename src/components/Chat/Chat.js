@@ -6,6 +6,7 @@ import { db } from "../../services/firebase";
 import { UserContext } from "../../UserProvider";
 import { ErrorContext, createReporter } from "../../ErrorCatcher";
 import ErrorListener from "../ErrorListener";
+import { getUserName, status } from "./helpers";
 
 import "./Chat.scss";
 
