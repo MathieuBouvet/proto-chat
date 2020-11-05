@@ -19,11 +19,6 @@
     overflow-y: auto;
   }
 
-  .user-list {
-    list-style: none;
-    padding: 0;
-  }
-
   .profile-picture {
     border-radius: 100%;
     width: 45px;
@@ -31,16 +26,9 @@
     margin-bottom: 10px;
   }
 
-  .user {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 25px;
-
-    &.offline {
-      filter: grayscale(1);
-      color: darkgray;
-    }
+  .user-list {
+    list-style: none;
+    padding: 0;
   }
 
   .input-container {

@@ -1,0 +1,13 @@
+@import "../../../global.scss";
+
+.User {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
+
+  &.offline {
+    filter: grayscale(1);
+    color: darkgray;
+  }
+}

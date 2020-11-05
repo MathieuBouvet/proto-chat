@@ -6,7 +6,7 @@ import { UserContext } from "../../UserProvider";
 import { ErrorContext, createReporter } from "../../ErrorCatcher";
 import ErrorListener from "../ErrorListener";
 import Message from "./Message";
-import { getUserName, status } from "./helpers";
+import User from "./User";
 
 import "./Chat.scss";
 
@@ -15,18 +15,6 @@ const messageSender = (user) => async (message) => {
     await db.ref("messages").push({ user, message, postedAt: Date.now() });
   }
 };
-
-const User = ({ user }) => (
-  <div className={`user ${status(user)}`} title={status(user)}>
-    <img
-      src={user.avatar}
-      className="profile-picture"
-      alt={`avatar-for-${getUserName(user)}`}
-      referrerPolicy="no-referrer"
-    />
-    {getUserName(user)}
-  </div>
-);
 
 const Chat = () => {
   const [users, setUsers] = useState([]);
