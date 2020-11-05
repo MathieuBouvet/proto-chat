@@ -1,0 +1,32 @@
+@import "../../global.scss";
+
+.ErrorListener {
+  color: #721c24;
+  background-color: #f8d7da;
+  margin: 16px;
+  padding: 15px;
+  border-radius: 5px;
+  min-width: 25vw;
+  max-width: 35vw;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #721c24;
+    padding-bottom: 5px;
+    font-size: 1.2rem;
+  }
+  .dismiss-error-button {
+    font-size: 1.7rem;
+    padding: 0;
+    display: inline-flex;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+  .body {
+    padding: 2px;
+  }
+}
