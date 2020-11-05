@@ -2,12 +2,13 @@ import { useContext } from "react";
 
 import { signInWithGoogle } from "../../services/firebase";
 import { ErrorContext, createReporter } from "../../ErrorCatcher";
+import ErrorListener from "../ErrorListener";
 
 import googleLogo from "../../assets/google-logo.svg";
 import "./Landing.scss";
 
 const Landing = () => {
-  const { errors, dispatchError } = useContext(ErrorContext);
+  const { dispatchError } = useContext(ErrorContext);
   const withLoginReporter = createReporter(dispatchError, "login");
   const tryGoogleSignin = withLoginReporter(signInWithGoogle);
   return (
@@ -31,7 +32,10 @@ const Landing = () => {
         <img src={googleLogo} alt="google-logo" className="google-logo" />
         sign in with google
       </button>
-      {errors.login && <div>Erreur lors de la tentative de connexion</div>}
+      <ErrorListener domain="login" title="Login Error">
+        Impossible to sign in. This is most likely due to a network error, so
+        you should try again.
+      </ErrorListener>
     </main>
   );
 };
