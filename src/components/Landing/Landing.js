@@ -32,7 +32,11 @@ const Landing = () => {
         <img src={googleLogo} alt="google-logo" className="google-logo" />
         sign in with google
       </button>
-      <ErrorListener domain="login" title="Login Error">
+      <ErrorListener
+        className="login-error-listener"
+        domain="login"
+        title="Login Error"
+      >
         Impossible to sign in. This is most likely due to a network error, so
         you should try again.
       </ErrorListener>
