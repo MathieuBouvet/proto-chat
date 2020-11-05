@@ -1,17 +1,14 @@
 import { useState, useEffect, useContext, useRef } from "react";
 import { FaTelegramPlane } from "react-icons/fa";
-import { format } from "timeago.js";
 
 import { db } from "../../services/firebase";
 import { UserContext } from "../../UserProvider";
 import { ErrorContext, createReporter } from "../../ErrorCatcher";
 import ErrorListener from "../ErrorListener";
+import Message from "./Message";
 import { getUserName, status } from "./helpers";
 
 import "./Chat.scss";
-
-const getUserName = (user) => user.name ?? user.email ?? "N/A";
-const status = (user) => (user.online ? "online" : "offline");
 
 const messageSender = (user) => async (message) => {
   if (message !== "") {
@@ -30,27 +27,6 @@ const User = ({ user }) => (
     {getUserName(user)}
   </div>
 );
-
-const Message = ({ message }) => {
-  const poster = message.user;
-  return (
-    <div className="message">
-      <img
-        src={poster.avatar}
-        className="profile-picture poster-picture"
-        alt={`avatar-for-${getUserName(poster)}`}
-        referrerPolicy="no-referrer"
-      />
-      <div className="posted-info">
-        <span className="poster-name">{getUserName(poster)}</span>{" "}
-        <small>
-          <i className="posted-at">{format(message.postedAt)}</i>
-        </small>
-      </div>
-      <div className="posted-message">{message.message}</div>
-    </div>
-  );
-};
 
 const Chat = () => {
   const [users, setUsers] = useState([]);
@@ -144,9 +120,9 @@ const Chat = () => {
       </section>
       <section className="messages" ref={messagesContainerRef}>
         <ul className="message-list">
-          {messages.map((message) => (
-            <li key={message.key} className="message-item">
-              <Message message={message} />
+          {messages.map(({ message, user, postedAt, key }) => (
+            <li key={key} className="message-item">
+              <Message message={message} poster={user} postedAt={postedAt} />
             </li>
           ))}
         </ul>

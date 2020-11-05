@@ -109,34 +109,6 @@
     margin-left: 2vw;
   }
 
-  .message {
-    text-align: left;
-    display: grid;
-    grid-template-rows: auto auto;
-    grid-template-rows: auto auto;
-    grid-template-areas:
-      "poster-avatar posted-info"
-      "poster-avatar posted-message";
-    column-gap: 15px;
-  }
-
-  .poster-picture {
-    grid-area: poster-avatar;
-  }
-
-  .posted-info {
-    grid-area: posted-info;
-    color: lighten($dark, 50%);
-  }
-
-  .poster-name {
-    font-size: 1.2rem;
-  }
-
-  .posted-message {
-    grid-area: posted-message;
-  }
-
   .message-item {
     margin-bottom: 35px;
   }
