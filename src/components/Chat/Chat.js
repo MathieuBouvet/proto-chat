@@ -21,7 +21,7 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [currentMessage, setCurrentMessage] = useState("");
   const user = useContext(UserContext);
-  const { dispatchError } = useContext(ErrorContext);
+  const { errors, dispatchError } = useContext(ErrorContext);
 
   const withDbWriteReporter = createReporter(dispatchError, "write-database");
   const sendMessage = withDbWriteReporter(messageSender(user));
@@ -60,7 +60,7 @@ const Chat = () => {
         messagesContainerRef.current.scrollHeight
       );
     }
-  });
+  }, [messages, errors]);
 
   const onlineUsers = users.filter((user) => user.online);
   const offlineUsers = users.filter((user) => !user.online);
